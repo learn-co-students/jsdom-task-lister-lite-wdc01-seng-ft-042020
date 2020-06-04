@@ -8,6 +8,10 @@ document.addEventListener("DOMContentLoaded", () => {
   let taskForm = document.querySelector("#create-task-form");
   taskForm.addEventListener("submit", handleSubmit)
 
+  function handleDeleteClick(e) {
+      e.target.parentNode.remove()
+  }
+
   function handleSubmit(e) {
       e.preventDefault();
       // console.log(e.target)
@@ -20,11 +24,20 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function writeTasktoDOM(task, deadline) {
-      let text = `${task}: ${deadline}`
+      //each task is a <li>
+      //after the <li>, have a button to delete from DOM
+      let text = `${task}: ${deadline}  `
       let listElement = document.createElement("li")
+      listElement.id = text
+
+      let deleteButton = document.createElement("button")
+      deleteButton.innerText = "DELETE"
+      deleteButton.addEventListener("click", handleDeleteClick)
+
       listElement.innerText = text
       let entireList = document.querySelector("#tasks")
       entireList.appendChild(listElement)
+      listElement.appendChild(deleteButton)
   }
 
 
